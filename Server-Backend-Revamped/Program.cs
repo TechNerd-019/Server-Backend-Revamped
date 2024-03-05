@@ -29,8 +29,6 @@ public class ServerListenerBackend
             /*
              * TO-DO: Add packet header and serialize data.
              */
-
-
         }
         catch (Exception exc)
         {

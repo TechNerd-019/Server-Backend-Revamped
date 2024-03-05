@@ -1,65 +1,97 @@
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-
-public class Packet
-{
+using System;
+using System.Text;
 
 /*
-* These enumerators are implemented client and server side to determine
-* what will be serialized and sent to my client and server.
+* Packet header for use with server and client.
 */
-    enum contentType
-    {
-        LOGIN,
-        SIGNUP,
-        POST
-    }
 
-    struct Header
-    {
-        char Source;
-        char DestAddress;
-        int NumOfBytes;
-        int flag;
+/*
+* A packet needs to have a header. Body and tail are optional.
+* Header tells us everything we need to know to read the data.
+*/
 
-    }
+enum ServerMessage { LOGIN, SIGNUP, POST_THREAD }
 
-    struct BPacket
-    {
-        Header header;
-       // char* DataField; This is not possible in C#.
-       byte[] DataField; // Used in its place.
-
-       ushort CRC;
+struct PacketHeader
+{
+    public byte sourceAddress;
+    public byte destinationAddress;
+    public byte messageLength;
+    public int sizeString1;
+}
 
 
-    }
+class Packet
+{
+    private PacketHeader PktHeader;
+    private byte[] dataField; // Body of Packet.
+    private ushort CRC;      // Tail of Packet.
 
-    struct SignIn
+    int headerSize = sizeof(byte) * 3 + sizeof(int);
+
+    private byte[] sentData;
+
+    private void LogInParameters()
     {
         string username;
         string password;
-
     }
 
-    struct SignUp
+    private void SignUpParameters()
     {
         string email;
         string username;
         string password;
     }
 
-    struct POST
+    private void PostParameters()
     {
-        string postTitle;
-        string postContent;
-
-        byte[] ImageBuffer;
-        
+        string title;
+        string content;
+        byte[] imageBuffer;
     }
 
+    public void ProcessMessage(ServerMessage messageType)
+    {
+        switch (messageType)
+        {
+            case ServerMessage.LOGIN:
+                // Add function call;
+                break;
+            case ServerMessage.SIGNUP:
+                // Add function call;
+                break;
+            case ServerMessage.POST_THREAD:
+                // Add function call;
+                break;
+        }
+    }
 
+    public byte[] SerializeDataForLogin(ref int totalSize, string username, string password)
+    {
+        if (sentData != null)
+        {
+            Array.Clear(sentData, 0, sentData.Length);
+        }
 
+        // Calculate the total size of the packet
+        totalSize = headerSize + username.Length + password.Length + sizeof(ushort);
 
+        sentData = new byte[totalSize];
 
+        // Copy the packet header fields
+        sentData[0] = PktHeader.sourceAddress;
+        sentData[1] = PktHeader.destinationAddress;
+        sentData[2] = PktHeader.messageLength;
+        sentData[3] = (byte)PktHeader.sizeString1;
+
+        // Copy the username and password strings
+        Encoding.ASCII.GetBytes(username).CopyTo(sentData, 4);
+        Encoding.ASCII.GetBytes(password).CopyTo(sentData, 4 + username.Length);
+
+        // Copy the CRC field
+        Array.Copy(BitConverter.GetBytes(CRC), 0, sentData, 4 + username.Length + password.Length, sizeof(ushort));
+
+        return sentData;
+    }
 }
