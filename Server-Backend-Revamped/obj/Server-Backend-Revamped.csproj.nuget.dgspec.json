@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TechNerd (Salah)\\Documents\\VS Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj": {}
+    "C:\\Users\\TechNerd (Salah)\\Documents\\Visual Studio Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TechNerd (Salah)\\Documents\\VS Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj": {
+    "C:\\Users\\TechNerd (Salah)\\Documents\\Visual Studio Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TechNerd (Salah)\\Documents\\VS Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj",
+        "projectUniqueName": "C:\\Users\\TechNerd (Salah)\\Documents\\Visual Studio Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj",
         "projectName": "Server-Backend-Revamped",
-        "projectPath": "C:\\Users\\TechNerd (Salah)\\Documents\\VS Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj",
+        "projectPath": "C:\\Users\\TechNerd (Salah)\\Documents\\Visual Studio Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\Server-Backend-Revamped.csproj",
         "packagesPath": "C:\\Users\\TechNerd (Salah)\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TechNerd (Salah)\\Documents\\VS Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\obj\\",
+        "outputPath": "C:\\Users\\TechNerd (Salah)\\Documents\\Visual Studio Code Projects\\Server-Backend-Revamped\\Server-Backend-Revamped\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\TechNerd (Salah)\\AppData\\Roaming\\NuGet\\NuGet.Config",
