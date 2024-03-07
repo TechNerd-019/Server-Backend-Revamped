@@ -89,7 +89,16 @@ class Packet
             Array.Clear(sentData, 0, sentData.Length);
         }
 
-        // Calculate the total size of the packet
+        // Calculate the total size of the packet.
+        /*
+        * This is done by manually adding up the bytes of each attribute
+        * of the class.
+        *
+        *
+        * sizeof(class) does not work since an error is thrown stating
+        * that the class does not have a predefined size, therefore
+        * "sizeof" can only be used in an unsafe context.
+        */
         totalSize = headerSize +
                     Encoding.ASCII.GetByteCount(credentials.username) +
                     Encoding.ASCII.GetByteCount(credentials.password) +
@@ -112,13 +121,15 @@ class Packet
         // Calculate the offset for copying fields
         int offset = 4;
 
-        // Copy the username and password strings
+        /*
+        * Here, each of the attributes is manually copied to the sentData buffer.
+        */
         Encoding.ASCII.GetBytes(credentials.username).CopyTo(sentData, offset);
         offset += credentials.username.Length;
         Encoding.ASCII.GetBytes(credentials.password).CopyTo(sentData, offset);
         offset += credentials.password.Length;
 
-        // Copy the first name and last name
+        
         Encoding.ASCII.GetBytes(credentials.fName).CopyTo(sentData, offset);
         offset += credentials.fName.Length;
         Encoding.ASCII.GetBytes(credentials.lName).CopyTo(sentData, offset);
