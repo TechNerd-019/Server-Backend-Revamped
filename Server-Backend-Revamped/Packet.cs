@@ -37,13 +37,6 @@ class Packet
         string password;
     }
 
-    private void SignUpParameters()
-    {
-        string email;
-        string username;
-        string password;
-    }
-
     private void PostParameters()
     {
         string title;
