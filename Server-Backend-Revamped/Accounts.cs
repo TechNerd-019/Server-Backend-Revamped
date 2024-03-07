@@ -1,31 +1,38 @@
-class accountInfrastructure
+class globalCredentials
 {
-        /*
-        * This class implements common attributes
-        * between all types of users in our system.
-        */
-
-        string fName;
-        string lName;
-        string username;
-        string password;
-
+    public string username;
+    public string password;
 }
+
+
+class accountInfrastructure : globalCredentials
+{
+    /*
+    * This class implements common attributes
+    * between all types of users in our system.
+    */
+
+    public string fName;
+    public string lName;
+}
+
 
 class sellers : accountInfrastructure
 {
-        string businessAddress;
-        string province;
-        string zipCode;
-        int phoneNumber;
-        string licenseNumber;
-        bool vaccinationStatus; // 1 - vaxxed, 0 - not vaxxed.
-        bool felineType;        // 1 - cat,    0, - dog.
+    public string businessAddress;
+    public string province;
+    public string zipCode;
+    public int phoneNumber;
+    public string licenseNumber;
+    public bool vaccinationStatus; // 1 - vaxxed, 0 - not vaxxed.
+    public bool felineType;        // 1 - cat,    0, - dog.
 }
+
 
 class sellersPets : sellers
 {
-        string petNames;
-        int[] petAges;
+    public string petNames;
+    public int[] petAges;
 
+    byte[] imageBuffer;
 }
