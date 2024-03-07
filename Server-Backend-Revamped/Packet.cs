@@ -82,7 +82,7 @@ class Packet
         return sentData;
     }
 
-    public byte[] SerializeDataForSignUpForSellers(ref int totalSize, accountInfrastructure credentials, sellers sellerCreds, sellersPets sellerPets, byte[] imageBuffer)
+    public byte[] SerializeDataForSignUpForSellers(ref int totalSize, accountInfrastructure credentials, sellers sellerCreds, sellersPets sellerPets)
     {
         if (sentData != null)
         {
@@ -108,7 +108,7 @@ class Packet
                     Encoding.ASCII.GetByteCount(sellerCreds.province) +
                     Encoding.ASCII.GetByteCount(sellerPets.petNames) +
                     (sizeof(int) * sellerPets.petAges.Length) +
-                    imageBuffer.Length +
+                    sellerPets.imageBuffer.Length +
                     sizeof(ushort); // CRC
 
         sentData = new byte[totalSize];
@@ -152,8 +152,8 @@ class Packet
         }
 
         // Copy the image buffer
-        Array.Copy(imageBuffer, 0, sentData, offset, imageBuffer.Length);
-        offset += imageBuffer.Length;
+        Array.Copy(sellerPets.imageBuffer, 0, sentData, offset, sellerPets.imageBuffer.Length);
+        offset += sellerPets.imageBuffer.Length;
 
         // Copy the CRC field
         Array.Copy(BitConverter.GetBytes(CRC), 0, sentData, offset, sizeof(ushort));

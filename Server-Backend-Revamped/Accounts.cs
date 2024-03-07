@@ -34,5 +34,5 @@ class sellersPets : sellers
     public string petNames;
     public int[] petAges;
 
-    byte[] imageBuffer;
+    public byte[] imageBuffer;
 }
