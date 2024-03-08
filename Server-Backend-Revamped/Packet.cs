@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-
+int bytemultiplier = 3
 /*
 * Packet header for use with server and client.
 */
@@ -25,7 +25,7 @@ class Packet
     private byte[] dataField; // Body of Packet. Will be used in constructor when received by client.
     private ushort CRC;      // Tail of Packet.
 
-    int headerSize = sizeof(byte) * 3;
+    int headerSize = sizeof(byte) * bytemultiplier;
 
     private byte[] sentData;
 
