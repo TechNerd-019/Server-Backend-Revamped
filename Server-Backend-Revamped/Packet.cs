@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-int bytemultiplier = 3
+int bytemultiplier = 3;
 /*
 * Packet header for use with server and client.
 */

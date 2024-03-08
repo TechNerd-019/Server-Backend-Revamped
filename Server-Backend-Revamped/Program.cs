@@ -36,6 +36,11 @@ public class Client
                 int bytesRead = clientSocket.Receive(buffer);
                 string receivedMessage = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                 Console.WriteLine("Server: " + receivedMessage);
+
+                 if (message.ToLower() == "exit")
+                {
+                    break; // Connection is terminated when user types "exit". PROPOSAL.
+                }
             }
 
             // Closing the socket.
