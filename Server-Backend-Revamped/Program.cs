@@ -1,38 +1,56 @@
-﻿// Libraries needed to create a server socket in C#
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
-
-public class ServerListenerBackend
+public class Client
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-
-        // Specify the server port and IP address to be used.
-        Int32 port = 27004;
-        IPAddress localAddr = IPAddress.Parse("127.0.0.1");
-        IPEndPoint localEndPoint = new IPEndPoint(localAddr, port);
-
         try
         {
-            // The socket is declared and initialized with the required parameters.
-            Socket server = new Socket(localAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            // We bind the socket to the port on the operating system.
-            server.Bind(localEndPoint);
-            // How many requests at a time am I processing?
-            server.Listen(5);
+            // Specifying the server's IP address and port.
+            IPAddress serverIP = IPAddress.Parse("127.0.0.1");
+            int serverPort = 27004;
+            IPEndPoint serverEndPoint = new IPEndPoint(serverIP, serverPort);
 
-            Console.WriteLine("The server is now waiting for incoming connections...");
-            Socket connectionSocket = server.Accept();
+            // Creating a socket for the client.
+            Socket clientSocket = new Socket(serverIP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            /*
-             * TO-DO: Add packet header and serialize data.
-             */
+            // Connecting to the server.
+            clientSocket.Connect(serverEndPoint);
+            Console.WriteLine("Connected to the server.");
+
+            // Start sending and receiving messages.
+            while (true)
+            {
+                //Some part of messaging feature
+                // Sending a message to the server.
+                Console.Write("Enter your message: ");
+                string message = Console.ReadLine();
+                byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+                clientSocket.Send(messageBytes);
+
+                // Receiving a message from the server.
+                byte[] buffer = new byte[1024];
+                int bytesRead = clientSocket.Receive(buffer);
+                string receivedMessage = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                Console.WriteLine("Server: " + receivedMessage);
+
+                 if (message.ToLower() == "exit")
+                {
+                    break; // Connection is terminated when user types "exit". PROPOSAL.
+                }
+            }
+
+            // Closing the socket.
+            clientSocket.Shutdown(SocketShutdown.Both);
+            clientSocket.Close();
         }
-        catch (Exception exc)
+        catch (Exception ex)
         {
-            Console.WriteLine(exc.ToString());
+            Console.WriteLine("An error occurred: " + ex.Message);
         }
     }
 }
+
