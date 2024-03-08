@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-int bytemultiplier = 3;
+
 /*
 * Packet header for use with server and client.
 */
@@ -25,7 +25,7 @@ class Packet
     private byte[] dataField; // Body of Packet. Will be used in constructor when received by client.
     private ushort CRC;      // Tail of Packet.
 
-    int headerSize = sizeof(byte) * bytemultiplier;
+    int headerSize = sizeof(byte) * 3;
 
     private byte[] sentData;
 
@@ -47,6 +47,26 @@ class Packet
                 // Add function call;
                 break;
         }
+    }
+
+    // To be called by client.
+    public void setData(byte[] receivedData)
+    {
+        PktHeader.sourceAddress = receivedData[0];
+        PktHeader.destinationAddress = receivedData[1];
+        PktHeader.messageLength = receivedData[2];
+
+        // Calculate the length of the dataField
+        int dataFieldLength = receivedData.Length - headerSize - sizeof(ushort);
+
+        // Copy the dataField from the receivedData
+        dataField = new byte[dataFieldLength];
+        Array.Copy(receivedData, headerSize, dataField, 0, dataFieldLength);
+
+        // Copy the CRC from the receivedData
+        byte[] crcBytes = new byte[sizeof(ushort)];
+        Array.Copy(receivedData, receivedData.Length - sizeof(ushort), crcBytes, 0, sizeof(ushort));
+        CRC = BitConverter.ToUInt16(crcBytes, 0);
     }
 
     public byte[] SerializeDataForLogin(ref int totalSize, globalCredentials credentials)
